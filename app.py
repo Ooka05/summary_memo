@@ -27,7 +27,7 @@ st.write("---")
 # --- 履歴・絞り込みエリア ---
 st.subheader("これまでの履歴")
 
-filter_cat = st.selectbox("カテゴリで絞り込み", ["すべて", "IT", "デザイン", "英語", "その他"], key="filter_cat")
+filter_cat = st.selectbox("カテゴリで絞り込み", ["すべて", "ビジュアライゼーション", "HCI設計論", "実用英語", "人工知能応用"], key="filter_cat")
 
 try:
     with open(FILE_NAME, "r", encoding="utf-8") as f:
