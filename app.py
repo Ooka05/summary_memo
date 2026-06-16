@@ -34,15 +34,22 @@ try:
     with open(FILE_NAME, "r", encoding="utf-8") as f:
         memos = f.readlines()
 
-    # 最新のメモから順にチェックしていく
-    for memo in reversed(memos):
-        # 1. 「すべて」が選ばれているなら、無条件で画面に表示する
-        if filter_cat == "すべて":
-            st.write(memo.strip())
-
-        # 2. 特定のカテゴリが選ばれているなら、その文字（例: "[IT]"）がメモに含まれているかチェックする
-        elif f"[{filter_cat}]" in memo:
-            st.write(memo.strip())
-
+   for memo in reversed(memos):
+        # 画面に表示するテキストを、1行ずつ「装飾された文字」に変換する
+        if filter_cat == "すべて" or f"[{filter_cat}]" in memo:
+            
+            # 「学んだこと」の部分だけを大きく目立たせるための加工
+            # 日時とカテゴリの後に来る「 | 」で文章を分割します
+            parts = memo.strip().split("] ", 1)
+            
+            if len(parts) == 2:
+                header_part = parts[0] + "]"  # 「日時 | [カテゴリ]」の部分
+                content_part = parts[1]       # 「学んだこと（用語）」の部分
+                
+                # HTMLを使って、学んだことの部分だけを大きな文字（font-size: 20px）にする
+                styled_text = f"<span style='color: #666;'>{header_part}</span> <strong style='font-size: 20px; color: #1f77b4;'>{content_part}</strong>"
+                st.markdown(styled_text, unsafe_allow_html=True)
+            else:
+                st.write(memo.strip())
 except FileNotFoundError:
     st.info("まだメモはありません。")
