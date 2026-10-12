@@ -24,7 +24,7 @@ def init_db():
 # アプリ起動時にテーブルを作成
 init_db()
 
-st.title("1行要約メモ (SQLite3版)")
+st.title("1行要約メモ")
 
 # --- 入力エリア ---
 st.subheader("新しいメモを追加")
